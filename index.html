@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulaire d'inscription</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+  <h2>Formulaire d'inscription</h2>
+  <form id="formulaire">
+    <label>Nom :
+      <input type="text" name="nom" required>
+    </label><br><br>
+
+     <label>Postenom :
+      <input type="text" name="Postenom" required>
+    </label><br><br>
+
+    <label>Prenom :
+      <input type="text" name="Prenom" required>
+    </label><br><br>
+
+    <label>Sexe :
+      <select name="sexe">
+        <option value="Masculin">Masculin</option>
+        <option value="Féminin">Féminin</option>
+      </select>
+    </label><br><br>
+
+    <label>Promotion :
+      <select name="Promotion">
+        <option value="L1LMD">L1 LMD</option>
+        <option value="L2 LMD">L2 LMD</option>
+        <option value="L3 LMD">L3 LMD</option>
+        <option value="Master">Master</option>
+        <option value="Doctorat">Doctorat</option>
+      </select>
+    </label><br><br>
+
+    <label>Filiere :
+      <select name="Filiere">
+        <option value="IG">IG</option>
+        <option value="GRH">GRH</option>
+        <option value="DA">DA</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Comptabilite">Comptabilite</option>
+        <option value="Banque & micro-finance">Banque & micro-finance</option>
+      </select>
+    </label><br><br>
+
+    <label>Vacation :
+      <input type="radio" name="vacation" value="Jour" required> Jour
+      <input type="radio" name="vacation" value="soir"> soir
+    </label><br><br>
+
+    <label>Date de naissance :
+      <input type="date" name="naissance">
+    </label><br><br>
+
+    <button type="submit">Enregistrer</button>
+  </form>
+
+  <h3>Tableau des informations</h3>
+  <table border="1" id="tableInfos">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Postenom</th>
+        <th>Prenom</th>
+        <th>Sexe</th>
+        <th>Promotion</th>
+        <th>Filiere</th>
+        <th>Vacation</th>
+        <th>Date de Naissance</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+
+
+  <script>
+    const formulaire = document.getElementById('formulaire');
+    const tableBody = document.querySelector('#tableInfos tbody');
+
+    formulaire.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const data = new FormData(formulaire);
+      const row = document.createElement('tr');
+
+      for (let value of data.values()) {
+        const cell = document.createElement('td');
+        cell.textContent = value;
+        row.appendChild(cell);
+      }
+
+      // Ajouter cellule vide si la date n'est pas remplie
+      if (!data.get('naissance')) {
+        const cell = document.createElement('td');
+        cell.textContent = '-';
+        row.appendChild(cell);
+      }
+
+      tableBody.appendChild(row);
+      formulaire.reset();
+    });
+  </script>
+
+</body>
+</html>
